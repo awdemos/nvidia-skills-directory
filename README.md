@@ -60,3 +60,5 @@ The directory contents reflect the licenses declared in each upstream skill (mos
 ## Want us to build this for you?
 
 Enterprise AI Atlas is maintained by [Vibe Coding Agency](https://vibecodingagency.com). We prototype and ship agentic systems, MCP servers, and enterprise AI integrations for teams that need working software fast — without hiring a full AI engineering team.
+
+**Free guide:** [The Non-Technical Founder's Guide to Agentic AI](https://vibecodingagency.com/resources/white-papers/non-technical-founders-guide-agentic-ai.pdf) — what agents and MCP servers are, and how to get a system built.
