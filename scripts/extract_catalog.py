@@ -261,6 +261,28 @@ class _ExtractorArgs(Protocol):
     output: Path
 
 
+def extract_catalog(
+    repo_dir: Path, commit: str, output: Path, upstream_url: str
+) -> None:
+    """Extract skills from ``repo_dir`` and write the catalog JSON to ``output``."""
+    skills = _extract_skills(repo_dir, commit)
+    repo_name = _repo_name_from_url(upstream_url)
+
+    catalog = Catalog.model_validate(
+        {
+            "repo": repo_name,
+            "commit": commit,
+            "total": len(skills),
+            "skills": skills,
+        }
+    )
+
+    _ = output.write_text(
+        catalog.model_dump_json(indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
 def main() -> None:
     """CLI entry point for the upstream catalog extractor."""
     parser = argparse.ArgumentParser(
@@ -292,23 +314,9 @@ def main() -> None:
             _ = _run_git("checkout", args.commit, cwd=repo_dir)
         commit = _run_git("rev-parse", "HEAD", cwd=repo_dir)
 
-        skills = _extract_skills(repo_dir, commit)
-        repo_name = _repo_name_from_url(args.upstream_url)
+        extract_catalog(repo_dir, commit, args.output, args.upstream_url)
 
-        catalog = Catalog.model_validate(
-            {
-                "repo": repo_name,
-                "commit": commit,
-                "total": len(skills),
-                "skills": skills,
-            }
-        )
-
-    _ = args.output.write_text(
-        catalog.model_dump_json(indent=2) + "\n",
-        encoding="utf-8",
-    )
-    print(f"Wrote {len(skills)} skills to {args.output}")
+    print(f"Wrote catalog to {args.output}")
 
 
 if __name__ == "__main__":
