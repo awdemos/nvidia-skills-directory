@@ -56,3 +56,7 @@ uv run basedpyright
 ## License
 
 The directory contents reflect the licenses declared in each upstream skill (mostly Apache-2.0). This repository's tooling is provided under the same permissive terms; see individual files for details.
+
+## Need implementation help?
+
+Enterprise AI Atlas is maintained by [Vibe Coding Agency](https://vibecodingagency.com). If your team needs support designing, building, or deploying production AI systems covered in this atlas, [get in touch](https://vibecodingagency.com).
